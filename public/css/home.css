@@ -1,0 +1,10 @@
+/* ===== Hero image height ===== */
+.hero-img {
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+}
+
+/* ===== Offers carousel ===== */
+.offer-set            { display: none; }   /* hidden until JS adds .show */
+.offer-set.show       { display: block; }  /* visible 2 at a time */
+.offer-set img        { width: 100%; }     /* keep cards equal */
