@@ -3,7 +3,7 @@ require('dotenv').config();
 const path   = require('path');
 const express = require('express');
 const engine  = require('ejs-mate');      // lets views use layout('...')
-
+const session = require('express-session');
 const pageRoutes = require('./routes/pages');
 
 const app = express();
@@ -15,6 +15,13 @@ app.set('views', path.join(__dirname, 'views'));
 
 /* ----------  STATIC ASSETS  ---------- */
 app.use(express.static(path.join(__dirname, '..', 'public')));
+
+/* ----------  USER SESSION  ---------- */
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+}));
 
 /* ----------  ROUTES  ---------- */
 app.use('/', pageRoutes);                  // ➜ anything starting with / uses pages router

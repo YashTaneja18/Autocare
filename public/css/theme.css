@@ -1,0 +1,22 @@
+
+/* ===== Make links pop on dark bg ===== */
+a { color: #80d0ff; }
+a:hover, a:focus { color: #c2e2ff;}
+
+/* ===== Override Bootstrap navbar ===== */
+.navbar-dark,
+.navbar.border-gradient {              /* helper class if you need */
+  background-color: #00246b;
+  background-image: linear-gradient(160deg, #00246b 0%, #02488d 100%);
+  color: #ffffff;    
+}
+
+/* Ensure dropdowns contrast */
+.dropdown-menu {
+  background-color: rgba(0,0,0,.85);
+  border: none;
+}
+.dropdown-item { color:#ffffff; }
+.dropdown-item:hover { background:#02488d; }
+
+

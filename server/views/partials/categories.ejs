@@ -1,0 +1,14 @@
+    <!-- Grid -->
+    <div class="categories-grid" id="categoriesGrid">
+      <% categories.forEach((c, idx) => { %>
+        <div class="category-card <%= idx >= initialVisible ? 'extra-cat' : '' %>">
+          <a href="/<%= c.slug %>"
+             class="btn btn-outline-secondary w-100 py-4 d-flex flex-column align-items-center justify-content-center h-100">
+            <img src="<%= c.image_url %>" alt="" class="mb-2" style="width:60px">
+            <span class="category-title fw-semibold"><%= c.name %></span>
+          </a>
+        </div>
+      <% }) %>
+    </div>
+
+

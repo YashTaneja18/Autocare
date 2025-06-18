@@ -1,0 +1,9 @@
+footer.footer {
+  background: #00246b;
+  background-image: linear-gradient(160deg, #00246b 0%, #02488d 100%);
+}
+footer a:hover { text-decoration: underline; }
+
+footer .btn-outline-light:hover {
+  background: rgba(255,255,255,.15);
+}

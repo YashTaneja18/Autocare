@@ -8,3 +8,90 @@
 .offer-set            { display: none; }   /* hidden until JS adds .show */
 .offer-set.show       { display: block; }  /* visible 2 at a time */
 .offer-set img        { width: 100%; }     /* keep cards equal */
+
+/*===cards===*/
+/* ===== Responsive 5‑column grid ===== */
+/* ================== Category Grid ================== */
+.categories-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);   /* mobile */
+}
+@media (min-width: 576px) { .categories-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 768px) { .categories-grid { grid-template-columns: repeat(5, 1fr); } }
+
+/* ================== Slide animation ================== */
+.extra-cat {                /* hidden state */
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: max-height .35s ease, opacity .35s ease, transform .35s ease;
+}
+
+.extra-cat.show {           /* revealed state */
+  max-height: 500px;        /* big enough for full card */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ===== Card look & feel ===== */
+.category-card a.btn {
+  border-width: 2px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  transition: 0.3s;
+}
+
+/* ===== Glass‑box hover ===== */
+.category-card a.btn {
+  position: relative;
+  overflow: hidden;                 /* clip img while it moves */
+  border: 1px solid rgba(255,255,255,.2);
+  border-right-color: rgba(255,255,255,.1);
+  border-bottom-color: rgba(255,255,255,.1);
+  background: rgba(255,255,255,.05);
+  backdrop-filter: blur(3px);       /* glass effect */
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+  transition: 400ms;
+}
+
+.category-card a.btn img,
+.category-card a.btn span {
+  transition: 400ms;
+  will-change: transform, opacity;
+}
+
+/* Hover state */
+.category-card a.btn:hover {
+  box-shadow: 0 20px 40px rgba(0,0,0,.18);
+}
+
+/* Lift the whole card on hover */
+.category-card a.btn:hover {
+  transform: translateY(-12px);
+}
+
+/* Move and rotate the image */
+.category-card a.btn:hover img {
+  transform:scale(1.4);
+}
+
+/* Fade text in a bit later */
+.category-card a.btn span {
+  opacity: .75;
+}
+.category-card a.btn:hover span {
+  color: black;
+  transform: translateY(-10px);
+}
+
+/* Bigger title font */
+.category-title {
+  font-size: 1.1rem;
+}
+
+
+.category-title {
+  font-size: 2rem;          /* bigger text */
+}
+

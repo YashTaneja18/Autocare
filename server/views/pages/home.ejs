@@ -1,7 +1,7 @@
 <% layout('layouts/main') %>
 
 <!-- ===== Hero Carousel + Tagline ===== -->
-<section class="py-4">
+<section class="bg-light py-4">
   <div class="container">
     <div class="row align-items-start">
 
@@ -22,18 +22,25 @@
         </div>
       </div>
 
-      <!-- Right side: Tagline + Product Details -->
-      <div class="col-md-5 text-md-start text-center">
-        <h1 class="display-6 fw-bold mb-3">
-          <span class="text-primary">Driven by Quality,</span><br>
-          <span class="text-dark">Defined by Service</span>
-        </h1>
+    <div class="col-md-5 d-flex flex-column justify-content-between text-md-start text-center" style="min-height: 400px;">
+  
+  <!-- Tagline at top -->
+        <div>
+            <h1 class="display-6 fw-bold mb-3">
+            <span class="text-primary">Driven by Quality,</span><br>
+            <span class="text-dark">Defined by Service</span>
+            </h1>
+        </div>
 
-        <!-- Product Details (filled via JS) -->
-        <h3 id="prodName" class="fw-semibold"></h3>
-        <h4 id="prodPrice" class="text-success mb-2"></h4>
-        <p  id="prodDesc" class="small"></p>
-      </div>
+        <!-- Product details at bottom -->
+        <div>
+            <h2 id="prodName" class="fw-semibold"></h2>
+            <h3 id="prodPrice" class="text-success mb-2"></h3>
+            <h4 id="prodDesc" class="small"></h4>
+        </div>
+
+    </div>
+
 
     </div>
   </div>
@@ -61,6 +68,23 @@
     </div>
   </div>
 </section>
+<section class="py-5 bg-light" id="categories">
+  <div class="container">
+
+    <h1 class="fw-bold mb-4">
+      <span class="text-primary">Search By</span> <span class="text-dark">Categories</span>
+    </h1>
+
+    <%- include('../partials/categories') %>
+
+    <% if (categories.length > initialVisible) { %>
+      <button id="toggleCategories" class="btn btn-primary mt-4">View More</button>
+    <% } %>
+  </div>
+</section>
+<%- include('../partials/footer') %>
+
 <link rel="stylesheet" href="/css/home.css">
 <script src="/js/home.js"></script>
+<script src="/js/categories.js"></script>
 
