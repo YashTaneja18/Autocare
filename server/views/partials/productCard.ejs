@@ -1,0 +1,39 @@
+<a href="/product/<%= p.partno %>" class="text-decoration-none text-light">
+  <div class="product-card shadow-sm position-relative">
+
+    <!-- Stock Badges -->
+    <% if (p.quantity === 0 || p.quantity === null) { %>
+      <span class="stock-badge bg-danger">Out of Stock</span>
+    <% } else if (p.quantity < 10) { %>
+      <span class="stock-badge bg-warning text-dark">Few Left!</span>
+    <% } %>
+
+    <!-- Image -->
+    <img src="<%= p.image_url %>" alt="<%= p.name %>" class="product-img">
+
+    <!-- Card Body -->
+    <div class="p-3 d-flex flex-column h-100">
+      <h6 class="fw-semibold mb-1"><%= p.name %></h6>
+      <small class="text-muted mb-1">Brand: <%= p.brand || 'N/A' %></small>
+
+      <!-- Rating -->
+      <div class="text-warning mb-1">
+        <% for (let i = 0; i < 5; i++) { %>
+          <i class="bi <%= i < p.rating ? 'bi-star-fill' : 'bi-star' %>"></i>
+        <% } %>
+      </div>
+
+      <div class="fw-bold mb-2">₹ <%= p.price.toLocaleString() %></div>
+
+      <% if (p.quantity === 0 || p.quantity === null) { %>
+        <button class="btn btn-secondary w-100 mt-auto" disabled>Out of Stock</button>
+      <% } else { %>
+        <form action="/cart/add" method="POST" class="add-to-cart mt-auto">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <input type="hidden" name="partno" value="<%= p.partno %>">
+          <button class="btn btn-primary w-100">Add to Cart</button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,79 @@
+<% layout('layouts/main') %>
+
+<a href="javascript:history.back()" class="btn btn-sm btn-outline-secondary mb-4">&larr; Back</a>
+
+<div class="row g-4">
+  <!-- Gallery -->
+  <div class="col-lg-6">
+    <div class="border rounded shadow-sm p-3">
+      <img src="<%= product.image_url %>" class="img-fluid rounded" alt="<%= product.name %>">
+    </div>
+  </div>
+
+  <!-- Primary info -->
+  <div class="col-lg-6">
+    <h2><%= product.name %></h2>
+    <p class="text-muted mb-1">Brand: <%= product.brand %></p>
+    <p class="text-muted">Category: <%= product.category %></p>
+
+    <h3 class="text-success">₹<%= product.base_price %></h3>
+    <% if (product.quantity === 0) { %>
+      <span class="badge bg-danger">Out of Stock</span>
+    <% } else if (product.quantity < 10) { %>
+      <span class="badge bg-warning text-dark">Few Left!</span>
+    <% } else { %>
+      <span class="badge bg-success">In Stock</span>
+    <% } %>
+
+    <form action="/cart/add" method="POST" class="add-to-cart mt-4 d-flex flex-column gap-2">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <input type="hidden" name="partno" value="<%= product.partno %>">
+      <div>
+        <label class="form-label">Quantity</label>
+        <input type="number" name="qty" min="1" max="<%= product.quantity %>" value="1" class="form-control" style="width:110px;">
+      </div>
+      <div>
+        <button class="btn btn-primary me-2" <%= product.quantity===0?'disabled':'' %>>Add to Cart</button>
+        <button class="btn btn-outline-success" formaction="/buy/now">Buy Now</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<hr class="my-5">
+
+<div class="row g-4">
+  <!-- Description -->
+  <div class="col-md-6">
+    <h4>Description</h4>
+    <p class="text-muted"><%= product.description %></p>
+  </div>
+
+  <!-- Specifications -->
+  <div class="col-md-6">
+    <h4>Specifications</h4>
+    <table class="table table-bordered small">
+      <tbody>
+        <% specs.forEach(s=>{ %>
+          <tr>
+            <th><%= s.key %></th>
+            <td><%= s.value %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<% if (fitments.length) { %>
+  <h4 class="mt-5">Compatible Vehicles</h4>
+  <table class="table table-striped small w-100">
+    <thead class="table-light"><tr><th>Make</th><th>Model</th><th>Year</th></tr></thead>
+    <tbody>
+      <% fitments.forEach(f=>{ %><tr><td><%= f.make %></td><td><%= f.model %></td><td><%= f.year %></td></tr><% }) %>
+    </tbody>
+  </table>
+<% } %>
+
+<!-- Similar products scroller -->
+<%- include('../partials/similar-products', { similar }) %>

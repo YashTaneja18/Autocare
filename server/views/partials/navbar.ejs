@@ -1,16 +1,20 @@
 <nav class="navbar navbar-expand-lg navbar-dark border-gradient shadow-sm">
   <div class="container">
+
+    <!-- Brand -->
     <a class="navbar-brand fw-bold" href="/">Autocare</a>
 
+    <!-- Mobile toggle -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="mainNavbar">
-      <!-- Left‑side links -->
+
+      <!-- Left links -->
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link <%= activePage==='home' ? 'active' : '' %>" href="/home">Home</a>
+          <a class="nav-link <%= activePage==='home' ? 'active' : '' %>" href="/">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link <%= activePage==='services' ? 'active' : '' %>" href="/services">Services</a>
@@ -20,50 +24,47 @@
         </li>
       </ul>
 
-      <!-- Search form -->
-      <form class="d-flex me-3" role="search" action="/search">
+      <!-- Search -->
+      <form class="d-flex me-lg-3" action="/search" role="search">
         <input class="form-control me-2" type="search" name="q" placeholder="Search">
         <button class="btn btn-outline-light" type="submit">Search</button>
       </form>
 
-      <!-- Cart button -->
-      <ul class="navbar-nav me-3">
-        <li class="nav-item">
-          <a class="nav-link position-relative" href="/cart">
-            <i class="bi bi-cart3 fs-5"></i> Cart
-            <!-- Optional badge for item count -->
-            <% if (cartCount && cartCount > 0) { %>
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                <%= cartCount %>
-              </span>
-            <% } %>
-          </a>
-        </li>
-      </ul>
-
-      <!-- Right‑side auth / account -->
-      <ul class="navbar-nav">
-        <% if (user) { %>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-              <i class="bi bi-person-circle"></i> <%= user.username %>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="/profile">Profile</a></li>
-              <li><a class="dropdown-item" href="/orders">Orders</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="/settings">Settings</a></li>
-            </ul>
-          </li>
-        <% } else { %>
-          <li class="nav-item">
-            <a class="nav-link" href="/login"><i class="bi bi-box-arrow-in-right"></i> Sign In</a>
-          </li>
+      <!-- Cart -->
+      <a href="/cart" class="btn btn-outline-light position-relative me-lg-3">
+        <i class="bi bi-cart3"></i>
+        <% if (cartCount > 0) { %>
+          <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            <%= cartCount %>
+          </span>
         <% } %>
-      </ul>
-    </div>
+      </a>
+
+      <!-- Auth / Account -->
+      <% if (user) { %>
+  <div class="dropdown">
+    <button class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown">
+      <i class="bi bi-person-circle"></i> <%= user.username %>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end">
+      <li><a class="dropdown-item" href="/profile">Account</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li>
+        <form action="/logout" method="POST" class="px-3">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button class="btn btn-sm btn-danger w-100">Logout</button>
+        </form>
+      </li>
+    </ul>
   </div>
+<% } else { %>
+  <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#loginModal">
+    <i class="bi bi-box-arrow-in-right"></i> Sign In
+  </button>
+<% } %>
+
+
+    </div><!-- /.navbar-collapse -->
+
+  </div><!-- /.container -->
 </nav>

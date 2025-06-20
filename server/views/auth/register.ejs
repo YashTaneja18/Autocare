@@ -1,0 +1,57 @@
+<% layout('layouts/main') %>
+<section class="py-5">
+  <div class="container" style="max-width:480px;">
+    <h1 class="mb-4 text-primary">Create Account</h1>
+
+    <% if (errors) { %>
+      <div class="alert alert-danger">
+        <% errors.forEach(e => { %><div><%= e.msg %></div><% }) %>
+      </div>
+    <% } %>
+
+    <form method="POST" action="/register" class="needs-validation" novalidate>
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <!-- Username -->
+      <div class="mb-3">
+        <label class="form-label">Username</label>
+        <input required name="username" class="form-control">
+        <div class="invalid-feedback">Choose a username.</div>
+      </div>
+      <!-- Email -->
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input required type="email" name="email" class="form-control">
+        <div class="invalid-feedback">Valid email required.</div>
+      </div>
+      <!-- Password + Confirm -->
+      <div class="row g-2 mb-3">
+        <div class="col">
+          <label class="form-label">Password</label>
+          <input required type="password" name="password" minlength="8" class="form-control">
+        </div>
+        <div class="col">
+          <label class="form-label">Confirm</label>
+          <input required type="password" name="confirm" class="form-control">
+        </div>
+      </div>
+      <!-- Phone -->
+      <div class="mb-3">
+        <label class="form-label">Phone</label>
+        <input required type="tel" name="phone" pattern="\\d{10}" class="form-control">
+        <div class="invalid-feedback">10‑digit phone.</div>
+      </div>
+      <!-- DOB -->
+      <div class="mb-3">
+        <label class="form-label">Date of Birth</label>
+        <input required type="date" name="dob" class="form-control">
+      </div>
+      <!-- Shipping -->
+      <div class="mb-3">
+        <label class="form-label">Shipping Address</label>
+        <textarea required name="shipping_addr" rows="2" class="form-control"></textarea>
+      </div>
+
+      <button class="btn btn-primary w-100">Register</button>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,79 @@
+<% layout('layouts/main') %>
+
+<section class="py-4">
+  <div class="container">
+    <h1 class="fw-bold mb-4">
+      <span class="text-primary"><%= category.name %></span>
+    </h1>
+
+    <div class="row">
+      <!-- ===== Filters sidebar ===== -->
+      <aside class="col-md-3 mb-4">
+        <form id="filters" class="filter-box" method="GET">
+
+          <!-- Brand filter -->
+          <h6 class="text-uppercase fw-bold mb-2">Brand</h6>
+          <% brandsList.forEach(br => { %>
+            <div class="form-check">
+              <input class="form-check-input"
+                     type="checkbox"
+                     name="brand"
+                     value="<%= br.id %>"
+                     id="brand<%= br.id %>"
+                     <%= selectedBrands.includes(String(br.id)) ? 'checked' : '' %>>
+              <label class="form-check-label" for="brand<%= br.id %>"><%= br.name %></label>
+            </div>
+          <% }) %>
+
+          <!-- Stock -->
+            <h6 class="text-uppercase fw-bold mt-3 mb-2">Stock</h6>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="inStock" id="stock-all" value=""
+                <%= !filters.inStock ? 'checked' : '' %>>
+            <label class="form-check-label" for="stock-all">All</label>
+            </div>
+
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="inStock" id="stock-in" value="1"
+                <%= filters.inStock === '1' ? 'checked' : '' %>>
+            <label class="form-check-label" for="stock-in">In Stock</label>
+            </div>
+
+            <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" name="inStock" id="stock-out" value="0"
+                <%= filters.inStock === '0' ? 'checked' : '' %>>
+            <label class="form-check-label" for="stock-out">Out of Stock</label>
+            </div>
+
+
+          <!-- Price -->
+          <h6 class="text-uppercase fw-bold mb-2">Price</h6>
+          <div class="d-flex gap-2 mb-3">
+            <input type="number" class="form-control form-control-sm" name="min" placeholder="Min ₹" value="<%= filters.min || '' %>">
+            <input type="number" class="form-control form-control-sm" name="max" placeholder="Max ₹" value="<%= filters.max || '' %>">
+          </div>
+
+          <!-- Sort -->
+          <h6 class="text-uppercase fw-bold mb-2">Sort By</h6>
+          <select class="form-select form-select-sm mb-3" name="sort">
+            <option value=""           <%= !filters.sort ? 'selected' : '' %>>Select</option>
+            <option value="price_asc"  <%= filters.sort==='price_asc' ? 'selected' : '' %>>Price: Low to High</option>
+            <option value="price_desc" <%= filters.sort==='price_desc' ? 'selected' : '' %>>Price: High to Low</option>
+            <option value="rating_desc"<%= filters.sort==='rating_desc' ? 'selected' : '' %>>Rating</option>
+          </select>
+
+          <button class="btn btn-sm btn-primary w-100">Apply</button>
+        </form>
+      </aside>
+
+      <!-- ===== Product grid ===== -->
+      <div class="col-md-9">
+        <div class="products-grid">
+          <% products.forEach(p => { %>
+            <%- include('../partials/productCard', { p }) %>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

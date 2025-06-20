@@ -1,0 +1,88 @@
+/* ===== Product grid ===== */
+.products-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(2, 1fr);          /* mobile: 2 per row */
+}
+@media (min-width: 992px) {                        /* ≥lg: 3 per row */
+  .products-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1200px) {                       /* ≥xl: 4 per row */
+  .products-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ===== Product card ===== */
+.product-card {
+  background: rgba(255,255,255,.05);
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: .75rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction:column;
+  transition: transform .25s, box-shadow .25s;
+  color: grey;
+}
+.product-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 12px 24px rgba(0,0,0,.2);
+  color: black;
+}
+.product-img {
+  width: 100%; height: 220px; object-fit: cover;
+}
+
+/* ===== Ad box placeholder ===== */
+.ad-box {
+  height: 100%;
+  min-height: 600px;
+  background: rgba(255,255,255,.1);
+  border: 2px dashed rgba(255,255,255,.3);
+  color: #ffffff80;
+  font-weight: 600;
+}
+
+/* Buttons */
+.btn-primary { background:#02488d; border-color:#02488d; }
+.btn-primary:hover { background:#0360c0; border-color:#0360c0; }
+
+.badge.bg-danger  { background:#dc3545 !important; }
+.badge.bg-warning { background:#ffc107 !important; color:#212529 !important; }
+
+.stock-badge {
+  color:black;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 5px;
+  z-index: 2;
+}
+
+.filter-box {
+  background: rgba(255,255,255,.05);
+  border-radius: .75rem;
+  padding: 1.25rem;
+  backdrop-filter: blur(3px);
+  border: 1px solid rgba(255,255,255,.15);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  font-size: 0.9rem;
+}
+
+.filter-box h6 {
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  margin-top: 1rem;
+}
+
+.filter-box .form-check-input:checked {
+  background-color: #02488d;
+  border-color: #02488d;
+}
+
+.filter-box .btn {
+  margin-top: 0.5rem;
+}
+

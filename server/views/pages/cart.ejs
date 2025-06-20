@@ -1,0 +1,76 @@
+<% layout('layouts/main') %>
+
+<h2 class="mb-4">Your Cart</h2>
+
+<% if (!items.length) { %>
+  <div class="alert alert-info">Cart is empty.</div>
+  <a href="/" class="btn btn-primary">Continue Shopping</a>
+
+<% } else { %>
+
+  <table class="table align-middle">
+    <thead class="table-light">
+      <tr>
+        <th></th>
+        <th>Product</th>
+        <th class="text-center">Qty</th>
+        <th class="text-end">Price</th>
+        <th class="text-end">Subtotal</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% items.forEach(it => { %>
+        <!-- one form per row -->
+        <form action="/cart/update" method="POST" class="cart-row">
+          <input type="hidden" name="_csrf"  value="<%= csrfToken %>">
+          <input type="hidden" name="partno" value="<%= it.partno %>">
+
+          <tr>
+            <!-- image -->
+            <td style="width:70px">
+              <img src="<%= it.image_url %>" class="img-fluid rounded" alt="<%= it.name %>">
+            </td>
+
+            <!-- name -->
+            <td><%= it.name %></td>
+
+            <!-- qty box -->
+            <td class="text-center" style="width:120px">
+              <input type="number" name="qty" value="<%= it.qty %>" min="1"
+                     class="form-control form-control-sm">
+            </td>
+
+            <!-- price + subtotal -->
+            <td class="text-end">₹<%= it.base_price %></td>
+            <td class="text-end fw-semibold">₹<%= it.subtotal %></td>
+
+            <!-- update / remove buttons -->
+            <td class="text-end">
+              <button class="btn btn-sm btn-outline-secondary me-1"
+                      title="Update quantity">⟳</button>
+
+              <button formaction="/cart/remove"
+                      class="btn btn-sm btn-outline-danger"
+                      title="Remove item">
+                &times;
+              </button>
+            </td>
+          </tr>
+        </form>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <!-- total + checkout -->
+  <div class="d-flex justify-content-between align-items-center">
+    <h4 class="mb-0">Total: ₹<%= total %></h4>
+
+    <form action="/checkout" method="POST" class="mb-0">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <button class="btn btn-success btn-lg">Checkout</button>
+    </form>
+  </div>
+
+<% } %>

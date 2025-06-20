@@ -1,0 +1,15 @@
+<% if (similar.length) { %>
+  <h4 class="mt-5 mb-3">Similar Products</h4>
+  <div class="d-flex overflow-auto gap-3 pb-3">
+    <% similar.forEach(p => { %>
+      <div class="card shadow-sm" style="min-width: 210px;">
+        <img src="<%= p.image_url %>" class="card-img-top" alt="<%= p.name %>">
+        <div class="card-body p-2">
+          <h6 class="card-title small"><%= p.name %></h6>
+          <div class="text-success fw-bold small mb-2">₹<%= p.base_price %></div>
+          <a href="/product/<%= p.partno %>" class="btn btn-sm btn-outline-primary w-100">View</a>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+<% } %>
