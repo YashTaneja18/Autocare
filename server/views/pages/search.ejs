@@ -1,0 +1,39 @@
+<% layout('layouts/main') %>
+
+<h2 class="mb-4">Results for “<%= q %>”</h2>
+
+<% if (!categories.length && !products.length) { %>
+  <div class="alert alert-info">No matches found.</div>
+<% } %>
+
+<% if (categories.length) { %>
+  <h4 class="text-primary">Categories</h4>
+  <div class="list-group mb-4">
+    <% categories.forEach(c => { %>
+      <a href="/category/<%= c.slug %>" class="list-group-item list-group-item-action">
+        <i class="bi bi-folder me-2"></i> <%= c.name %>
+      </a>
+    <% }) %>
+  </div>
+<% } %>
+
+<% if (products.length) { %>
+  <h4 class="text-success">Products</h4>
+  <div class="row row-cols-1 row-cols-md-3 g-3">
+    <% products.forEach(p => { %>
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <% if (p.image_url) { %>
+            <img src="<%= p.image_url %>" class="card-img-top" alt="<%= p.name %>">
+          <% } %>
+          <div class="card-body">
+            <h6 class="card-title"><%= p.name %></h6>
+            <p class="card-text mb-2 text-success">₹<%= p.base_price %></p>
+            <a href="/product/<%= p.partno %>" class="stretched-link"></a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+<% } %>
+

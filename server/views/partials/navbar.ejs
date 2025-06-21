@@ -25,10 +25,17 @@
       </ul>
 
       <!-- Search -->
-      <form class="d-flex me-lg-3" action="/search" role="search">
-        <input class="form-control me-2" type="search" name="q" placeholder="Search">
-        <button class="btn btn-outline-light" type="submit">Search</button>
-      </form>
+      <div class="position-relative me-lg-3">
+  <form id="searchForm" class="d-flex" action="/search" role="search">
+    <input id="searchInput" class="form-control me-2" name="q" type="search" placeholder="Search">
+    <button class="btn btn-outline-light" type="submit">Search</button>
+  </form>
+
+  <!-- suggestion list lives inside the same relative box -->
+  <ul id="searchResults"
+      class="list-group position-absolute w-100 d-none"
+      style="top:100%; max-height:300px; overflow-y:auto; z-index:1080;"></ul>
+</div>
 
       <!-- Cart -->
       <a href="/cart" class="btn btn-outline-light position-relative me-lg-3">
@@ -47,7 +54,7 @@
       <i class="bi bi-person-circle"></i> <%= user.username %>
     </button>
     <ul class="dropdown-menu dropdown-menu-end">
-      <li><a class="dropdown-item" href="/profile">Account</a></li>
+      <li><a class="dropdown-item" href="/account">Account</a></li>
       <li><hr class="dropdown-divider"></li>
       <li>
         <form action="/logout" method="POST" class="px-3">

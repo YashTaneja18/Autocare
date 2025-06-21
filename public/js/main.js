@@ -35,7 +35,10 @@ function wireAdd() {
       if (res.ok) {
         const json = await res.json();
         showToast('Added to cart!');
-        document.getElementById('cartBadge').textContent = json.cartCount;
+        const badge = document.getElementById('cartBadge');
+        if (badge && json.cartCount != null) {
+        badge.textContent = json.cartCount;
+        }
       }
     });
   });
@@ -69,7 +72,9 @@ function wireRows() {
         const msg = endpoint.includes('/remove') ? 'Item removed' : 'Cart updated';
         showToast(msg, 'success');
         const badge = document.getElementById('cartBadge');
-        if (badge) badge.textContent = json.cartCount;
+        if (badge && json.cartCount != null) {
+        badge.textContent = json.cartCount;
+        }
         location.reload();              // refresh totals & rows
       } else {
         showToast('Operation failed', 'danger');

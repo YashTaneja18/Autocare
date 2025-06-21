@@ -3,14 +3,14 @@ const pool = require('../models/db');
 async function getCartCount(req) {
   if (req.session.user) {
     const [[row]] = await pool.query(
-      'SELECT COALESCE(SUM(qty),0) AS cnt FROM cart_items WHERE user_id=?',
+      'SELECT COALESCE(SUM(qty), 0) AS cnt FROM cart_items WHERE user_id = ?',
       [req.session.user.id]
     );
     return row.cnt;
+  } else {
+    return (req.session.cart || []).reduce((sum, i) => sum + i.qty, 0);
   }
-  return (req.session.cart || []).reduce((s, i) => s + i.qty, 0);
 }
-
 
 // helper — load merged cart (db if logged‑in, else session)
 async function loadCart(req) {

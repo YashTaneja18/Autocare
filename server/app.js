@@ -8,12 +8,14 @@ const MySQLStore    = require('express-mysql-session')(session);
 const helmet        = require('helmet');
 const rateLimit     = require('express-rate-limit');
 const csurf         = require('csurf');
-
+const accountRoutes = require('./routes/account');
 const pool          = require('./models/db');      // existing MySQL2 promise pool
 const pageRoutes    = require('./routes/pages');
 const authRoutes    = require('./routes/auth');    // new auth router
 const productRoutes = require('./routes/product');
 const cartRoutes = require('./routes/cart');
+const searchRoutes = require('./routes/search');
+
 
 const app = express();
 
@@ -107,6 +109,9 @@ app.use('/', authRoutes);
 app.use('/', pageRoutes);
 app.use('/', productRoutes);
 app.use('/', cartRoutes);
+app.use('/', accountRoutes);
+app.use('/', searchRoutes);
+
 
 /* ─────────────────  404 handler  ───────────────── */
 
